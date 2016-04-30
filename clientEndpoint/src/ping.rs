@@ -38,12 +38,19 @@ fn ping_list(hosts: &Vec<String>) -> HashMap<String, bool> {
     status
 }
 
-pub fn start_ping_list(hosts: Vec<String>) -> Receiver<HashMap<String, bool>> {
+pub fn start_ping_list(hostchan: Receiver<String>) -> Receiver<HashMap<String, bool>> {
     let (tx, rx): (Sender<HashMap<String, bool>>, Receiver<HashMap<String, bool>>) = mpsc::channel();
-    let thread_hosts = hosts.clone();
 
     thread::spawn(move || {
+        let mut thread_hosts: Vec<String> = vec!();
+        
         loop {
+            let host = hostchan.try_recv();
+
+            if host.is_ok() {
+                thread_hosts.push(host.unwrap());
+            }
+            
             tx.send(ping_list(&thread_hosts)).unwrap();
             thread::sleep(Duration::from_secs(1));
         }
