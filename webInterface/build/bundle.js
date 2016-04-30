@@ -11,13 +11,40 @@ var _reactDom = require('react-dom');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var machines = {
+	"10.0.0.1": false,
+	"4.2.2.2": true,
+	"example.com": true
+};
+
 var test = _react2.default.createClass({
 	displayName: 'test',
 	render: function render() {
+		var machinesContent = [];
+		var host;
+
+		for (host in machines) {
+			machinesContent.push(_react2.default.createElement(
+				'div',
+				{ className: 'col-md-2', key: host },
+				_react2.default.createElement(
+					'h2',
+					{ style: { "color": machines[host] ? "green" : "red", "textAlign": "center" } },
+					_react2.default.createElement('span', { className: 'glyphicon glyphicon-hdd' }),
+					_react2.default.createElement('br', null),
+					host
+				)
+			));
+		}
+
 		return _react2.default.createElement(
-			'h1',
-			null,
-			'Test'
+			'div',
+			{ className: 'container' },
+			_react2.default.createElement(
+				'div',
+				{ className: 'row' },
+				machinesContent
+			)
 		);
 	}
 });
