@@ -1,0 +1,6 @@
+[package]
+name = "clientEndpoint"
+version = "0.1.0"
+authors = ["Connor Wood <connorwood71@gmail.com>"]
+
+[dependencies]
