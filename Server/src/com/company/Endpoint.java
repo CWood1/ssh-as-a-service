@@ -1,5 +1,7 @@
 package com.company;
 
+import org.omg.SendingContext.RunTime;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -43,6 +45,11 @@ public class Endpoint {
 
         for (int i = 3; i < buffer.length; i++)
             buffer[i] = (byte) hostname.charAt(i-3);
+        try {
+            output.write(buffer);
+        } catch (IOException ex) {
+            throw new RuntimeException("Fuck");
+        }
 
     }
 
