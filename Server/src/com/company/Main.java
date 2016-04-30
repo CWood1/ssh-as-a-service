@@ -40,16 +40,17 @@ public class Main {
 
 
     public void FollowHost(String hostname) {
-        byte[] buffer = new byte[3 + hostname.length()];
-        if (hostname.length() > 0xFFFF) {
-            buffer[2] = (byte) 0;
+        byte[] buffer = new byte[4 + hostname.length()];
+        if (hostname.length() > 0xFFFF) { //continuation flag
+            buffer[3] = (byte) 0;
         }
         else {
-            buffer[2] = (byte) 0;
+            buffer[3] = (byte) 0;
         }
         short length = (short) hostname.length();
-        buffer[0] = (byte) (length & 0xFF);
+        buffer[0] = (byte) (length & 0xFF); //length
         buffer[1] = (byte) (length & 0xFF00);
+        buffer[2] = 1; //message type
 
         for (int i = 3; i < buffer.length; i++)
             buffer[i] = (byte) hostname.charAt(i-3);
@@ -74,7 +75,7 @@ public class Main {
             short len = input.readShort();
 
             if (len > 0) {
-                buffer = new byte[len];
+                buffer = new byte[len + 4];
                 input.readFully(buffer);
             }
         }
@@ -85,11 +86,10 @@ public class Main {
     }
 
 
-    }
-
-
-
-
-
-
 }
+
+
+
+
+
+
