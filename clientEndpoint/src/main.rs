@@ -1,6 +1,8 @@
 extern crate oping;
 
 use oping::{Ping, PingResult, PingError};
+use std::collections::HashMap;
+use std::vec::Vec;
 
 fn ping(host: &str) -> PingResult<()> {
     let mut ping = Ping::new();
@@ -19,10 +21,28 @@ fn ping(host: &str) -> PingResult<()> {
     Ok(())
 }
 
+fn ping_list(hosts: Vec<&str>) -> HashMap<&str, bool> {
+    let mut status: HashMap<&str, bool> = HashMap::new();
+    
+    for host in hosts {
+        status.insert(host, 
+                      match ping(host) {
+                          Ok(_) => true,
+                          Err(_) => false,
+                      });
+    }
+
+    status
+}
+
 fn main() {
-    match ping("10.0.0.1") {
-        Ok(_) => println!("Ping successful!"),
-        Err(PingError::LibOpingError(e)) => println!("Error: {}", e),
-        Err(_) => println!("Unspecified error occurred"),
+    let status = ping_list(vec!("10.0.0.1", "4.2.2.2", "example.com"));
+
+    for (host, active) in status {
+        if active {
+            println!("Host {} is active", host);
+        } else {
+            println!("Host {} is inactive", host);
+        }
     }
 }
