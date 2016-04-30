@@ -5,3 +5,4 @@ authors = ["Connor Wood <connorwood71@gmail.com>"]
 
 [dependencies]
 oping = "0.2.0"
+byteorder = "0.5.1"
