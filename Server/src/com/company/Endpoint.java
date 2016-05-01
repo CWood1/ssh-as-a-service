@@ -83,6 +83,7 @@ public class Endpoint {
 
             String ascii = name.toString();
             boolean status = reply[i] == 1;
+            System.out.println(ascii);
             list.put(ascii, status);
             i++;
         }

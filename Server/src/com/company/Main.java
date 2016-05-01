@@ -1,5 +1,7 @@
 package com.company;
 
+import javafx.util.Pair;
+
 import java.util.HashMap;
 
 public class Main {
@@ -15,7 +17,10 @@ public class Main {
         }
 
         HashMap<String, Boolean> xxx = end.GetStatus();
-        System.out.println("Google.com: " + (xxx.get("google.com") ? "active" : "inactive"));
+
+        for(String b : xxx.keySet()) {
+            System.out.println(b + ": " + xxx.get(b));
+        }
 
     }
 }
