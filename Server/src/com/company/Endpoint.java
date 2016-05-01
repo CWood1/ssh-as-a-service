@@ -110,6 +110,7 @@ public class Endpoint {
         byte buffer[] = null;
         try {
             short len = input.readShort();
+            input.readShort();
 
             if (len > 0) {
                 buffer = new byte[len];
