@@ -112,7 +112,7 @@ public class Endpoint {
             short len = input.readShort();
 
             if (len > 0) {
-                buffer = new byte[len + 4];
+                buffer = new byte[len];
                 input.readFully(buffer);
             }
         }
