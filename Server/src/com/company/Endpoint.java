@@ -112,6 +112,8 @@ public class Endpoint {
             short len = input.readShort();
             input.readShort();
 
+            System.out.println(len);
+
             if (len > 0) {
                 buffer = new byte[len];
                 input.readFully(buffer);
