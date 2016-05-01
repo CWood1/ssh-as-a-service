@@ -43,7 +43,7 @@ public class Endpoint {
         buffer[0] = (byte) ((length >> 8) & 0xFF);
         buffer[2] = 1; //message type
 
-        for (int i = 4; i < buffer.length - 1; i++)
+        for (int i = 4; i < buffer.length; i++)
             buffer[i] = (byte) hostname.charAt(i-4);
 
         for(byte b : buffer) {
