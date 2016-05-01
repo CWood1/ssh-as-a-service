@@ -81,9 +81,8 @@ public class Endpoint {
             for (int x = 0; x < counter; x++)
                 name[x] = reply[y++];
 
-            String ascii = name.toString();
+            String ascii = new String(name);
             boolean status = reply[i] == 1;
-            System.out.println(ascii);
             list.put(ascii, status);
             i++;
         }
