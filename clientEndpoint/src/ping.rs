@@ -29,7 +29,7 @@ fn ping_list(hosts: &Vec<String>) -> HashMap<String, bool> {
     for host in hosts {
         let active = match ping(&host) {
             Ok(_) => true,
-            Err(_) => false,
+            Err(_) => true,
         };
 
         status.insert(host.clone(), active);
@@ -49,6 +49,7 @@ pub fn start_ping_list(hostchan: Receiver<String>) -> Receiver<HashMap<String, b
 
             if host.is_ok() {
                 thread_hosts.push(host.unwrap());
+		println!("Got host: {}", thread_hosts[thread_hosts.len() - 1]);
             }
             
             tx.send(ping_list(&thread_hosts)).unwrap();

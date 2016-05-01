@@ -17,10 +17,11 @@ pub fn connect_to_server(server: String) -> TcpStream {
 }
 
 fn handle_pkt(mut stream: &TcpStream, host_status: HashMap<String, bool>, header: [u8; 4], host_list: &Sender<String>) {
-    match header[0] {
+    match header[2] {
         1 => {
+	    println!("Following host");
             let mut rdr = Cursor::new(header);
-            rdr.set_position(2);
+            rdr.set_position(0);
 
             let length: u16 = rdr.read_u16::<LittleEndian>().unwrap();
             
@@ -32,10 +33,12 @@ fn handle_pkt(mut stream: &TcpStream, host_status: HashMap<String, bool>, header
             host_list.send(host).unwrap();
         },
         2 => {
+	    println!("Get status");
             let mut octets: Vec<u8> = vec![0, 0, 3, 0];
-            
+
             for (host, status) in host_status {
-                octets.extend(host.into_bytes());
+		let x = host.into_bytes();
+                octets.extend(x);
                 octets.push(if status { 1 } else { 0 });
             }
 
@@ -51,8 +54,8 @@ fn handle_pkt(mut stream: &TcpStream, host_status: HashMap<String, bool>, header
             let mut length: Vec<u8> = vec![0, 0];
             length.write_u16::<LittleEndian>(octet_length as u16).unwrap();
 
-            octets[0] = length[0];
-            octets[1] = length[1];
+            octets[1] = 11;
+            octets[0] = 0;
 
             stream.write(&octets).unwrap();
         },
