@@ -46,9 +46,6 @@ public class Endpoint {
         for (int i = 4; i < buffer.length; i++)
             buffer[i] = (byte) hostname.charAt(i-4);
 
-        for(byte b : buffer) {
-            System.out.println(b);
-        }
         try {
             output.write(buffer);
             output.flush();
@@ -111,8 +108,6 @@ public class Endpoint {
         try {
             short len = input.readShort();
             input.readShort();
-
-            System.out.println(len);
 
             if (len > 0) {
                 buffer = new byte[len];

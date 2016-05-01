@@ -1,4 +1,7 @@
 package com.company;
+
+import java.util.HashMap;
+
 public class Main {
 
 
@@ -10,7 +13,9 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        end.GetStatus();
+
+        HashMap<String, Boolean> xxx = end.GetStatus();
+        System.out.println("Google.com: " + (xxx.get("google.com") ? "active" : "inactive"));
 
     }
 }
