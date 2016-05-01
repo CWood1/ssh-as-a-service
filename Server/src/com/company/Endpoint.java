@@ -39,8 +39,8 @@ public class Endpoint {
             buffer[3] = (byte) 0;
         }
         short length = (short) hostname.length();
-        buffer[1] = (byte) (length & 0xFF); //length
-        buffer[0] = (byte) ((length >> 8) & 0xFF);
+        buffer[0] = (byte) (length & 0xFF); //length
+        buffer[1] = (byte) ((length >> 8) & 0xFF);
         buffer[2] = 1; //message type
 
         for (int i = 4; i < buffer.length; i++)
