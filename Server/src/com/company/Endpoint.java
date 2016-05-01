@@ -45,6 +45,8 @@ public class Endpoint {
 
         for (int i = 4; i < buffer.length - 1; i++)
             buffer[i] = (byte) hostname.charAt(i-4);
+
+        System.out.println(buffer);
         try {
             output.write(buffer);
         } catch (IOException ex) {
