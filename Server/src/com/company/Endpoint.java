@@ -51,6 +51,7 @@ public class Endpoint {
         }
         try {
             output.write(buffer);
+            output.flush();
         } catch (IOException ex) {
             throw new RuntimeException("Fuck");
         }
