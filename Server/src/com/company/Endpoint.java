@@ -40,11 +40,11 @@ public class Endpoint {
         }
         short length = (short) hostname.length();
         buffer[0] = (byte) (length & 0xFF); //length
-        buffer[1] = (byte) (length & 0xFF00);
+        buffer[1] = (byte) ((length >> 8) & 0xFF);
         buffer[2] = 1; //message type
 
-        for (int i = 3; i < buffer.length; i++)
-            buffer[i] = (byte) hostname.charAt(i-3);
+        for (int i = 4; i < buffer.length - 1; i++)
+            buffer[i] = (byte) hostname.charAt(i-4);
         try {
             output.write(buffer);
         } catch (IOException ex) {
